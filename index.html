@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="so">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#d90d20">
+<meta name="description" content="BLACK EXCHANGE — mobile-first exchange app interface">
+<link rel="manifest" href="manifest.json">
+<title>BLACK EXCHANGE</title>
+<style>
+:root{--red:#d90d20;--red2:#f12635;--ink:#17191d;--muted:#7a8088;--line:#e7e8eb;--bg:#f5f6f8;--green:#18864b}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink)}button,input,select{font:inherit}button{cursor:pointer}
+.app{max-width:520px;min-height:100vh;margin:auto;background:#fff;box-shadow:0 0 28px #0000000d;position:relative;padding-bottom:82px}
+.top{background:linear-gradient(140deg,#b90016,#ed172b 58%,#a90013);color:white;padding:22px 20px 28px;border-radius:0 0 27px 27px;position:relative;overflow:hidden}
+.top:after{content:"";position:absolute;width:240px;height:240px;border:1px solid #ffffff20;border-radius:50%;right:-95px;top:-105px;box-shadow:0 0 0 25px #ffffff08,0 0 0 55px #ffffff07}
+.brandrow{display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1}.brand{font-weight:950;letter-spacing:-2px;font-size:32px;line-height:1}.brand span{color:#fff}.brand b{color:#17191d}.avatar{border:2px solid #ffffffb0;border-radius:50%;width:42px;height:42px;display:grid;place-items:center;font-size:20px;background:#ffffff18}
+.welcome{margin-top:25px;color:#ffffffc9;font-size:14px}.summary{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-top:8px}.hello{font-size:23px;font-weight:750}.balance-label{font-size:12px;color:#ffffffc9;text-align:right}.balance{font-size:24px;font-weight:850;text-align:right;margin-top:3px}.accountline{display:flex;justify-content:space-between;align-items:center;margin-top:22px;font-size:13px;color:#ffffffdf}.promo{font-weight:800;color:#ffe36e}
+main{padding:20px 16px 14px}.page{display:none}.page.active{display:block}.section-title{font-size:18px;font-weight:800;margin:2px 0 14px}.sub{font-size:13px;color:var(--muted);margin:-7px 0 17px}.balance-card{background:linear-gradient(135deg,#fff1f2,#fff);border:1px solid #ffe0e3;border-radius:19px;padding:18px;margin-bottom:18px;box-shadow:0 5px 18px #b6001410}.balance-card .label{font-size:13px;color:#6b7077}.balance-card .amount{font-size:30px;font-weight:900;margin:4px 0 10px}.promo-line{font-size:13px;color:#686e76}.promo-line b{color:var(--red)}
+.actions{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0 24px}.action{border:1px solid var(--line);border-radius:15px;background:#fff;min-height:88px;box-shadow:0 3px 12px #0000000b;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#30343a;font-size:12px;font-weight:700}.action .ico{font-size:23px;color:var(--red)}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:15px;margin-bottom:12px}.row{display:flex;align-items:center;gap:12px}.grow{flex:1;min-width:0}.method-icon{width:45px;height:45px;border-radius:12px;background:#fff0f1;color:var(--red);display:grid;place-items:center;font-weight:900;font-size:13px;border:1px solid #ffdadd}.title{font-weight:750;font-size:14px}.desc{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.4}.arrow{color:#8a8f96;font-size:22px}
+.field{display:block;margin:12px 0}.field label{display:block;font-size:12px;font-weight:750;color:#4e535a;margin-bottom:7px}.field input,.field select{width:100%;padding:13px 12px;border:1px solid #dfe1e5;border-radius:11px;background:#fff;outline:none}.field input:focus,.field select:focus{border-color:var(--red);box-shadow:0 0 0 3px #d90d2010}.btn{width:100%;border:0;border-radius:12px;background:var(--red);color:#fff;font-weight:800;padding:14px;margin-top:7px;box-shadow:0 5px 13px #d90d2024}.btn.secondary{background:#fff;color:var(--red);border:1px solid #f4c7cc;box-shadow:none}.notice{background:#fff5e8;border:1px solid #ffe3bb;color:#7b5114;padding:12px;border-radius:12px;font-size:12px;line-height:1.5;margin:12px 0}
+.txempty{text-align:center;padding:34px 8px;color:#858a91}.txempty .big{font-size:35px;margin-bottom:10px}.tx{display:flex;align-items:center;gap:10px;padding:13px 0;border-bottom:1px solid var(--line)}.tx:last-child{border-bottom:0}.txicon{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:#fff0f1;color:var(--red)}.txamount{font-weight:800;text-align:right;font-size:13px}.positive{color:var(--green)}.negative{color:var(--red)}
+.fixture{padding:14px;border:1px solid var(--line);border-radius:15px;margin-bottom:11px}.league{font-size:11px;color:var(--muted);margin-bottom:9px}.teams{display:flex;justify-content:space-between;align-items:center;font-weight:750;font-size:13px}.live{color:var(--red);font-size:10px;font-weight:800}.odds{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.odd{border:1px solid #e5e6e9;border-radius:9px;background:#f8f8f9;padding:10px 4px;text-align:center;font-size:12px}.odd b{display:block;color:var(--red);font-size:14px;margin-top:3px}.profile-head{text-align:center;padding:10px 0 18px}.profile-avatar{margin:0 auto 10px;width:70px;height:70px;border-radius:50%;display:grid;place-items:center;background:#fff0f1;color:var(--red);font-size:30px;border:2px solid #ffd1d6}.profile-name{font-weight:850;font-size:18px}.smallid{color:var(--muted);font-size:12px;margin-top:5px}.menurow{display:flex;align-items:center;justify-content:space-between;padding:15px 2px;border-bottom:1px solid var(--line);font-size:14px}.menurow:last-child{border:0}.menurow span:first-child{display:flex;align-items:center;gap:10px}
+.bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(520px,100%);display:grid;grid-template-columns:repeat(5,1fr);background:#fff;border-top:1px solid #e6e6e8;padding:8px 4px calc(8px + env(safe-area-inset-bottom));z-index:5}.navbtn{background:transparent;border:0;color:#8b9096;font-size:10px;font-weight:700;padding:4px 0;display:flex;flex-direction:column;align-items:center;gap:4px}.navbtn .navico{font-size:20px}.navbtn.active{color:var(--red)}.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:92px;background:#222;color:#fff;padding:12px 16px;border-radius:12px;font-size:13px;z-index:20;display:none;max-width:90%;box-shadow:0 8px 25px #0003}.hide{display:none!important}
+@media(min-width:600px){body{padding:20px 0}.app{border-radius:24px;overflow:hidden;min-height:calc(100vh - 40px)}.bottom{bottom:20px;border-radius:0 0 24px 24px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+ <div class="brandrow"><div class="brand"><span>BLACK</span><b> EXCHANGE</b></div><button class="avatar" aria-label="Profile" onclick="showPage('profile')">♙</button></div>
+ <div class="welcome" id="welcome">Ku soo dhowow</div>
+ <div class="summary"><div class="hello" id="hello">BLACK EXCHANGE</div><div><div class="balance-label">Hadhaagaaga</div><div class="balance" id="headerBalance">$0.00</div></div></div>
+ <div class="accountline"><span>ID: <b id="accountId">BE104826</b></span><span>Promo: <b class="promo">BALAG</b></span></div>
+</header>
+<main>
+<section class="page active" id="home">
+ <div class="balance-card"><div class="label">Hadhaaga account-ka</div><div class="amount" id="homeBalance">$0.00</div><div class="promo-line">Promo Code: <b>BALAG</b> &nbsp; · &nbsp; <span id="txCount">0</span> transactions</div></div>
+ <div class="actions">
+  <button class="action" onclick="openMethodPage('deposit')"><span class="ico">↓</span>Deposit</button>
+  <button class="action" onclick="openMethodPage('withdraw')"><span class="ico">↑</span>Withdrawal</button>
+  <button class="action" onclick="showPage('transactions')"><span class="ico">⇄</span>Transactions</button>
+ </div>
+ <div class="section-title">Ciyaaraha maanta</div>
+ <div class="sub">Tusaale muuqaal ah — ku xidh xog rasmi ah si ay u noqoto live.</div>
+ <div class="fixture"><div class="league">🏴 Premier League <span class="live">MATCH CENTER</span></div><div class="teams"><span>Manchester City</span><span>vs</span><span>Arsenal</span></div><div class="odds"><button class="odd" onclick="selectOdd('Man City')">1<b>1.85</b></button><button class="odd" onclick="selectOdd('Draw')">X<b>3.50</b></button><button class="odd" onclick="selectOdd('Arsenal')">2<b>4.10</b></button></div></div>
+ <div class="fixture"><div class="league">🇪🇸 La Liga</div><div class="teams"><span>Real Madrid</span><span>vs</span><span>Barcelona</span></div><div class="odds"><button class="odd" onclick="selectOdd('Real Madrid')">1<b>2.10</b></button><button class="odd" onclick="selectOdd('Draw')">X<b>3.25</b></button><button class="odd" onclick="selectOdd('Barcelona')">2<b>2.95</b></button></div></div>
+ <div class="notice">Ogeysiis: ciyaaraha iyo qiimayaasha halkan waa xog tusaale ah, ma aha odds toos ah ama adeeg sharad lacag dhab ah.</div>
+</section>
+<section class="page" id="deposit">
+ <div class="section-title">Deposit / Lacag dhigasho</div><div class="sub">Dooro habka lacagta aad adeegsanayso.</div>
+ <div id="depositMethods"></div>
+ <div class="notice">Ugu yaraan: <b>$0.30</b>. Lacag dhab ah laguma shubi karo ilaa adeeg-bixiye iyo backend ammaan ah la isku xiro.</div>
+ <div id="depositForm" class="card hide"><div class="title" id="depositMethodTitle">Deposit</div><div class="field"><label>Qadarka (USD)</label><input id="depositAmount" type="number" min="0.30" step="0.01" placeholder="0.30"></div><div class="field"><label>Lambarka telefoonka / tixraaca</label><input id="depositPhone" placeholder="Geli lambarkaaga"></div><button class="btn" onclick="submitRequest('deposit')">Dir codsiga deposit-ka</button><button class="btn secondary" onclick="hideForm('depositForm')">Ka noqo</button></div>
+</section>
+<section class="page" id="withdraw">
+ <div class="section-title">Withdrawal / Lacag la bixid</div><div class="sub">Dooro habka aad lacagta kula bixi lahayd.</div>
+ <div id="withdrawMethods"></div>
+ <div id="withdrawForm" class="card hide"><div class="title" id="withdrawMethodTitle">Withdrawal</div><div class="field"><label>Qadarka (USD)</label><input id="withdrawAmount" type="number" min="0.30" step="0.01" placeholder="0.30"></div><div class="field"><label>Lambarka telefoonka / account-ka</label><input id="withdrawPhone" placeholder="Geli lambarka aad ku qaadanayso"></div><button class="btn" onclick="submitRequest('withdraw')">Dir codsiga withdrawal-ka</button><button class="btn secondary" onclick="hideForm('withdrawForm')">Ka noqo</button></div>
+ <div class="notice">Codsiyada lacag-bixintu hadda waxay ku kaydsamayaan qalabkan oo keliya. Xaqiijin lacag dhab ah waxay u baahan tahay backend iyo API rasmi ah.</div>
+</section>
+<section class="page" id="transactions"><div class="section-title">Transactions</div><div class="sub">Taariikhda codsiyada account-ka.</div><div id="transactionsList" class="card"></div></section>
+<section class="page" id="profile">
+ <div class="section-title">Profile & Account</div><div class="card"><div class="profile-head"><div class="profile-avatar">♙</div><div class="profile-name" id="profileName">BLACK EXCHANGE User</div><div class="smallid">Account ID: <b id="profileId">BE104826</b></div></div><div class="field"><label>Magacaaga (ikhtiyaari)</label><input id="nameInput" placeholder="Magacaaga"></div><button class="btn" onclick="saveName()">Kaydi magaca</button><div class="menurow"><span>💳 Promo Code</span><b class="promo">BALAG</b></div><div class="menurow"><span>💰 Hadhaaga</span><b id="profileBalance">$0.00</b></div><div class="menurow" onclick="showPage('deposit')"><span>↓ Deposit</span><b>›</b></div><div class="menurow" onclick="showPage('withdraw')"><span>↑ Withdrawal</span><b>›</b></div><div class="menurow" onclick="showPage('transactions')"><span>⇄ Transaction History</span><b>›</b></div></div>
+ <div class="notice">Ha gelin PIN, password ama xog sir ah meel aan la xaqiijin. App-kan waa frontend bilow ah; gelitaanka iyo xogta user-ka wali backend ammaan ah ayay u baahan yihiin.</div>
+</section>
+<section class="page" id="notifications"><div class="section-title">Notifications</div><div class="card"><div class="txempty"><div class="big">♧</div><b>Wax ogeysiis ah ma jiro</b><div class="desc">Ogeysiisyada account-ka halkan ayay ka muuqan doonaan.</div></div></div></section>
+</main>
+<nav class="bottom">
+ <button class="navbtn active" data-page="home" onclick="showPage('home')"><span class="navico">⌂</span>Home</button>
+ <button class="navbtn" data-page="transactions" onclick="showPage('transactions')"><span class="navico">⇄</span>Transaction</button>
+ <button class="navbtn" data-page="notifications" onclick="showPage('notifications')"><span class="navico">♧</span>Notification</button>
+ <button class="navbtn" data-page="deposit" onclick="showPage('deposit')"><span class="navico">＋</span>Deposit</button>
+ <button class="navbtn" data-page="profile" onclick="showPage('profile')"><span class="navico">♙</span>Profile</button>
+</nav>
+<div class="toast" id="toast"></div>
+</div>
+<script>
+const METHODS=[{name:'ZAAD',short:'ZAAD',desc:'Telesom mobile money',icon:'Z'},{name:'EVC Plus',short:'EVC',desc:'Hormuud mobile money',icon:'E+'},{name:'Sahal',short:'SAHAL',desc:'Somtel mobile money',icon:'S'},{name:'Golis',short:'GOLIS',desc:'Golis mobile money',icon:'G'}];
+let chosen={deposit:null,withdraw:null};
+let transactions=JSON.parse(localStorage.getItem('be_transactions')||'[]');
+let userName=localStorage.getItem('be_name')||'BLACK EXCHANGE User';
+const accountId=localStorage.getItem('be_id')||'BE'+Math.floor(100000+Math.random()*899999);
+localStorage.setItem('be_id',accountId);
+function money(n){return '$'+Number(n||0).toFixed(2)}
+function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.style.display='block';setTimeout(()=>el.style.display='none',3200)}
+function showPage(page){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===page));document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active',b.dataset.page===page));window.scrollTo({top:0,behavior:'smooth'});if(page==='transactions')renderTransactions()}
+function methodMarkup(m,type){return `<button class="card row" style="width:100%;text-align:left" onclick="chooseMethod('${type}','${m.name}')"><span class="method-icon">${m.icon}</span><span class="grow"><span class="title">${m.name}</span><span class="desc" style="display:block">${type==='deposit'?'Deposit via':'Withdraw via'} ${m.desc}</span></span><span class="arrow">›</span></button>`}
+function renderMethods(){document.getElementById('depositMethods').innerHTML=METHODS.map(m=>methodMarkup(m,'deposit')).join('');document.getElementById('withdrawMethods').innerHTML=METHODS.map(m=>methodMarkup(m,'withdraw')).join('')}
+function chooseMethod(type,name){chosen[type]=name;document.getElementById(type+'MethodTitle').textContent=name+' — '+(type==='deposit'?'Deposit':'Withdrawal');document.getElementById(type+'Form').classList.remove('hide');document.getElementById(type+'Form').scrollIntoView({behavior:'smooth',block:'center'})}
+function openMethodPage(type){showPage(type)}
+function hideForm(id){document.getElementById(id).classList.add('hide')}
+function submitRequest(type){const amount=Number(document.getElementById(type+'Amount').value);const phone=document.getElementById(type+'Phone').value.trim();if(!chosen[type])return toast('Fadlan dooro habka lacagta.');if(!Number.isFinite(amount)||amount<0.30)return toast('Qadarka ugu yar waa $0.30.');if(!phone)return toast('Fadlan geli lambarka telefoonka/account-ka.');const item={id:'TX'+Date.now().toString().slice(-8),type,method:chosen[type],amount,phone,status:'Pending — needs server verification',date:new Date().toLocaleString()};transactions.unshift(item);localStorage.setItem('be_transactions',JSON.stringify(transactions));document.getElementById(type+'Amount').value='';document.getElementById(type+'Phone').value='';hideForm(type+'Form');refresh();toast('Codsiga waa la kaydiyey. Lacag-bixintu wali lama xaqiijin.');showPage('transactions')}
+function renderTransactions(){const el=document.getElementById('transactionsList');if(!transactions.length){el.innerHTML='<div class="txempty"><div class="big">⇄</div><b>Wax transaction ah ma jiro</b><div class="desc">Codsiyada aad dirto halkan ayay ka muuqan doonaan.</div></div>';return}el.innerHTML=transactions.map(t=>`<div class="tx"><div class="txicon">${t.type==='deposit'?'↓':'↑'}</div><div class="grow"><div class="title">${t.type==='deposit'?'Deposit':'Withdrawal'} · ${t.method}</div><div class="desc">${t.date}<br>${t.status}</div></div><div class="txamount">${money(t.amount)}</div></div>`).join('')}
+function refresh(){document.getElementById('headerBalance').textContent='$0.00';document.getElementById('homeBalance').textContent='$0.00';document.getElementById('profileBalance').textContent='$0.00';document.getElementById('txCount').textContent=transactions.length;document.getElementById('accountId').textContent=accountId;document.getElementById('profileId').textContent=accountId;document.getElementById('hello').textContent=userName;document.getElementById('profileName').textContent=userName;renderTransactions()}
+function saveName(){userName=document.getElementById('nameInput').value.trim()||'BLACK EXCHANGE User';localStorage.setItem('be_name',userName);refresh();toast('Magaca waa la kaydiyey.')}
+function selectOdd(team){toast('Waxaad dooratay '+team+'. Betting dhab ah lama hawlgelin.')}
+renderMethods();refresh();
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}))}
+</script>
+</body></html>
